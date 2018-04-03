@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>×ÔÓÉÍÏ¶¯µÄDIV²ã·½¿é</title>
+    <title>è‡ªç”±æ‹–åŠ¨çš„DIVå±‚æ–¹å—</title>
     <meta http-equiv="content-type" content="text/html;charset=gb2312">
     <style type="text/css">
         #draggable_box {
@@ -69,16 +69,16 @@
 <div id="draggable_box">
     <div id="draggable"></a>
         <div class="title">
-            ±êÌâ(¿ÉÍÏ¶¯)
+            æ ‡é¢˜(å¯æ‹–åŠ¨)
         </div>
         <div class="content">
-            <input type="text" value="ĞÕÃû">
-            <input type="text" value="ÃÜÂë">
-            <input type="text" value="ÉúÈÕ">
+            <input type="text" value="å§“å">
+            <input type="text" value="å¯†ç ">
+            <input type="text" value="ç”Ÿæ—¥">
         </div>
         <div class="bottom">
-            <button>È¡Ïû</button>
-            <button>Ìá½»</button>
+            <button>å–æ¶ˆ</button>
+            <button>æäº¤</button>
         </div>
     </div>
 </div>
@@ -92,21 +92,21 @@
         init: function (o) {
             var self = this;
             o.onmousedown = self.start;
-            //ÕâÀïÓÃÀ´ÅĞ¶ÏÔÚÄÚÈİÈ¥ºÍµ×²¿À¸ÎŞ·¨ÍÏ×§
+            //è¿™é‡Œç”¨æ¥åˆ¤æ–­åœ¨å†…å®¹åŒºå’Œåº•éƒ¨æ æ— æ³•æ‹–æ‹½
             $(o).find(".content,.bottom").hover(function () {
                 o.onmousedown = null;
             }, function () {
                 o.onmousedown = self.start;
             });
         },
-        //ÒÆ¶¯¿ªÊ¼º¯Êı
+        //ç§»åŠ¨å¼€å§‹å‡½æ•°
         start: function (e) {
             var o;
-            //¶ÔÊÂ¼ş¶ÔÏóµÄÅĞ¶Ï
+            //å¯¹äº‹ä»¶å¯¹è±¡çš„åˆ¤æ–­
             e = rDrag.fixEvent(e);
-            //¸³ÖµrDrag.o
+            //èµ‹å€¼rDrag.o
             rDrag.o = o = this;
-            //»ñÈ¡µ½ÒÆ¶¯ÔªËØÏà¶ÔÓÚÊó±êµÄ³õÊ¼Î»ÖÃ
+            //è·å–åˆ°ç§»åŠ¨å…ƒç´ ç›¸å¯¹äºé¼ æ ‡çš„åˆå§‹ä½ç½®
             o.x = e.clientX - rDrag.o.offsetLeft;
             o.y = e.clientY - rDrag.o.offsetTop;
             document.onmousemove = rDrag.move;
@@ -115,36 +115,36 @@
         move: function (e) {
             e = rDrag.fixEvent(e);
             var oLeft, oTop;
-            //»ñÈ¡µ½ÒÆ¶¯ÔªËØÖĞĞÄÏà¶ÔÓÚÒ³ÃæµÄÎ»ÖÃ
+            //è·å–åˆ°ç§»åŠ¨å…ƒç´ ä¸­å¿ƒç›¸å¯¹äºé¡µé¢çš„ä½ç½®
             oLeft = e.clientX - rDrag.o.x;
             oTop = e.clientY - rDrag.o.y;
-            //»ñÈ¡divÔÚÒ³ÃæÖĞXÖáµÄ×îĞ¡×î´óÎ»ÖÃ
+            //è·å–divåœ¨é¡µé¢ä¸­Xè½´çš„æœ€å°æœ€å¤§ä½ç½®
             var minX = rDrag.o.offsetWidth / 2;
-            var maxX = (window.innerWidth - rDrag.o.offsetWidth / 2)//È¥µô¹ö¶¯ÌõµÄ¿í¶È
+            var maxX = (window.innerWidth - rDrag.o.offsetWidth / 2)//å»æ‰æ»šåŠ¨æ¡çš„å®½åº¦
             if (oLeft <= minX) {
                 oLeft = minX;
             } else if (oLeft >= maxX) {
                 oLeft = maxX;
             }
-            //»ñÈ¡divÔÚÒ³ÃæÖĞYÖáµÄ×î´ó×îĞ¡Î»ÖÃ
+            //è·å–divåœ¨é¡µé¢ä¸­Yè½´çš„æœ€å¤§æœ€å°ä½ç½®
             var minY = rDrag.o.offsetHeight / 2;
-            var maxY = (window.innerHeight - rDrag.o.offsetHeight / 2) - 2//È¥µô¹ö¶¯ÌõµÄ¸ß¶È
+            var maxY = (window.innerHeight - rDrag.o.offsetHeight / 2) - 2//å»æ‰æ»šåŠ¨æ¡çš„é«˜åº¦
             if (oTop <= minY) {
                 oTop = minY;
             } else if (oTop >= maxY) {
                 oTop = maxY;
             }
-            //¸³ÖµÒÆ¶¯
+            //èµ‹å€¼ç§»åŠ¨
             rDrag.o.style.left = oLeft + 'px';
             rDrag.o.style.top = oTop + 'px';
-            //ÒÆ¶¯Ê±½ûÖ¹Ò³Ãæ»òÔªËØµÄÄ¬ÈÏĞĞÎª
+            //ç§»åŠ¨æ—¶ç¦æ­¢é¡µé¢æˆ–å…ƒç´ çš„é»˜è®¤è¡Œä¸º
             rDrag.o.addEventListener("mousemove", rDrag.handler);
         },
         end: function (e) {
             e = rDrag.fixEvent(e);
-            //½áÊøÊ±ÒÆ³ı
+            //ç»“æŸæ—¶ç§»é™¤
             rDrag.o.removeEventListener('mouseup', rDrag.handler);
-            //½â°óÊÂ¼ş
+            //è§£ç»‘äº‹ä»¶
             rDrag.o = document.onmousemove = document.onmouseup = null;
         },
         fixEvent: function (e) {
