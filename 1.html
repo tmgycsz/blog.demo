@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>自由拖动的DIV层方块</title>
+    <meta http-equiv="content-type" content="text/html;charset=gb2312">
+    <style type="text/css">
+        #draggable_box {
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            right: 0;
+            background-color: #000;
+            opacity: 0.8;
+            min-width: 500px;
+        }
+        #draggable {
+            background-color: #fff;
+            font-size: 9pt;
+            color: white;
+            width: 500px;
+            height: 300px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            box-shadow: #666 0px 0px 10px;
+            display: inline-block;
+        }
+        .title {
+            font-size: 18px;
+            padding: 10px;
+            cursor: move;
+            background: #e7e8eb;
+            color: black;
+            user-select:none;
+        }
+
+        .content {
+            width: 100%;
+            margin: 0 auto;
+            height: 200px;
+            text-align: center;
+        }
+
+        .content input {
+            margin-top: 20px;
+            width: 50%;
+        }
+
+        .bottom {
+            width: 100%;
+            text-align: center;
+            background: #e7e8eb;
+            padding: 15px 0;
+        }
+
+        .bottom button {
+            margin: 0 8px;
+            min-width: 60px;
+            padding: 0 15px;
+            height: 28px;
+            line-height: 28px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+<div id="draggable_box">
+    <div id="draggable"></a>
+        <div class="title">
+            标题(可拖动)
+        </div>
+        <div class="content">
+            <input type="text" value="姓名">
+            <input type="text" value="密码">
+            <input type="text" value="生日">
+        </div>
+        <div class="bottom">
+            <button>取消</button>
+            <button>提交</button>
+        </div>
+    </div>
+</div>
+
+<script src="http://libs.baidu.com/jquery/2.0.0/jquery.js"></script>
+<script type="text/javascript">
+    var rDrag = {
+
+        o: null,
+
+        init: function (o) {
+            var self = this;
+            o.onmousedown = self.start;
+            //这里用来判断在内容去和底部栏无法拖拽
+            $(o).find(".content,.bottom").hover(function () {
+                o.onmousedown = null;
+            }, function () {
+                o.onmousedown = self.start;
+            });
+        },
+        //移动开始函数
+        start: function (e) {
+            var o;
+            //对事件对象的判断
+            e = rDrag.fixEvent(e);
+            //赋值rDrag.o
+            rDrag.o = o = this;
+            //获取到移动元素相对于鼠标的初始位置
+            o.x = e.clientX - rDrag.o.offsetLeft;
+            o.y = e.clientY - rDrag.o.offsetTop;
+            document.onmousemove = rDrag.move;
+            document.onmouseup = rDrag.end;
+        },
+        move: function (e) {
+            e = rDrag.fixEvent(e);
+            var oLeft, oTop;
+            //获取到移动元素中心相对于页面的位置
+            oLeft = e.clientX - rDrag.o.x;
+            oTop = e.clientY - rDrag.o.y;
+            //获取div在页面中X轴的最小最大位置
+            var minX = rDrag.o.offsetWidth / 2;
+            var maxX = (window.innerWidth - rDrag.o.offsetWidth / 2)//去掉滚动条的宽度
+            if (oLeft <= minX) {
+                oLeft = minX;
+            } else if (oLeft >= maxX) {
+                oLeft = maxX;
+            }
+            //获取div在页面中Y轴的最大最小位置
+            var minY = rDrag.o.offsetHeight / 2;
+            var maxY = (window.innerHeight - rDrag.o.offsetHeight / 2) - 2//去掉滚动条的高度
+            if (oTop <= minY) {
+                oTop = minY;
+            } else if (oTop >= maxY) {
+                oTop = maxY;
+            }
+            //赋值移动
+            rDrag.o.style.left = oLeft + 'px';
+            rDrag.o.style.top = oTop + 'px';
+            //移动时禁止页面或元素的默认行为
+            rDrag.o.addEventListener("mousemove", rDrag.handler);
+        },
+        end: function (e) {
+            e = rDrag.fixEvent(e);
+            //结束时移除
+            rDrag.o.removeEventListener('mouseup', rDrag.handler);
+            //解绑事件
+            rDrag.o = document.onmousemove = document.onmouseup = null;
+        },
+        fixEvent: function (e) {
+            if (!e) {
+                e = window.event;
+                e.target = e.srcElement;
+                e.layerX = e.offsetX;
+                e.layerY = e.offsetY;
+            }
+            return e;
+        },
+        handler: function (e) {
+            e.preventDefault && e.preventDefault();
+        }
+    }
+    window.onload = function () {
+        rDrag.init($("#draggable")[0]);
+        window.onresize = function () {
+            $("#draggable").css("top", "50%");
+            $("#draggable").css("left", "50%");
+        };
+    }
+</script>
+
+</body>
+</html>
