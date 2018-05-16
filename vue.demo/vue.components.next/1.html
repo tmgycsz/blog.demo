@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    <my-component>
+        <span>父亲的名字：{{name}}</span><br>
+        <span>父亲的年龄：{{age}}</span><br>
+    </my-component>
+    <div style="height: 100px"></div>
+    <my-component>
+    </my-component>
+</div>
+<!--组件模板-->
+<template id="myComponent">
+    <div>
+        <span>儿子的名字：{{childName}}</span><br>
+        <span>儿子的年龄：{{childAge}}</span><br>
+        <slot>
+            父亲信息不显示
+        </slot>
+    </div>
+</template>
+<!--加载vue.js-->
+<script src="../vue.js"></script>
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            name: "father",
+            age: "30",
+        },
+        components: {
+            'my-component': {
+                template: '#myComponent',
+                props: ['name','age'],
+                //这里data必须是一个函数
+                data: function() {
+                    return {
+                        childName: "child",
+                        childAge: "8",
+                    }
+                }
+            }
+        }
+    })
+</script>
+</body>
+</html>
