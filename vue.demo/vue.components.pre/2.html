@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title></title>
+    </head>
+    <body>
+        <div id="app">
+            <my-component></my-component>
+			<my-component1></my-component1>
+        </div>
+        
+		<!-- template模板 -->
+        <template id="myComponent">
+            <div>This is a template tpl component!</div>
+        </template>
+		
+		<!-- script模板 （必须指定type类型为x-template） -->
+		<script type="text/x-template" id="myComponent1">
+           	<div>This is a script tpl component!</div>
+       	</script>
+    </body>
+    <script src="https://cdn.bootcss.com/vue/2.4.2/vue.js"></script>
+    <script>
+        
+        Vue.component('my-component',{
+            template: '#myComponent'
+        })
+		Vue.component('my-component1',{
+            template: '#myComponent1'
+        })
+        
+        new Vue({
+            el: '#app'
+        })
+        
+    </script>
+</html>

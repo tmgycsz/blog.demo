@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    <div>
+        父组件：
+        <input type="text" v-model="name">
+        <input type="text" v-model="age">
+    </div>
+    <child :my-name="name" :my-age="age"></child>
+</div>
+</body>
+<script src="https://cdn.bootcss.com/vue/2.4.2/vue.js"></script>
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            name: "csz",
+            age: "21"
+        },
+        components: {
+            'child': {
+                template: '<div>子组件：<span>姓名：{{myName}}</span> <span>年龄：{{myAge}}</span> </div>',
+                props: ['myName', 'myAge']
+            }
+        }
+    })
+</script>
+</html>

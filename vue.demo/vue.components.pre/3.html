@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<html>
+    <body>
+        <div id="app">
+            <parent-component>
+            </parent-component>
+        </div>
+    </body>
+    <script src="https://cdn.bootcss.com/vue/2.4.2/vue.js"></script>
+    <script>
+        
+        Vue.component("parent-component",{
+        	template: '<p>This is a Parent component<child-component></child-component></p>',
+        	components: {
+                // 局部注册Child组件，该组件只能在Parent组件内使用
+                'child-component': {
+                	template: '<p>This is a child component!</p>'
+                }
+            }
+        });
+        
+        new Vue({
+            el: '#app'
+        })
+        
+    </script>
+</html>
