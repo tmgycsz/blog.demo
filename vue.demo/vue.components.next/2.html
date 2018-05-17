@@ -4,20 +4,27 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <style>
-        .component {
+        .components {
             margin: 100px auto;
-            width: 400px;
+            width: 100px;
+            text-align: center;
+            font-size: 23px;
         }
-        .head,.body,.footer,.title {
+
+        .head, .body, .footer, .title {
             width: 100%;
-            height: 200px;
+            height: 50px;
             background-color: #ff3b30;
+            font-size: 23px;
+            text-align: center;
+            line-height: 50px;
+            color: white;
         }
     </style>
 </head>
 <body>
 <div id="app">
-    <my-component>
+    <my-component :msg="msg">
         <div class="title">标题</div>
         <p class="head" slot="head">我是头部</p>
         <p class="body" slot="body">我是身体</p>
@@ -26,12 +33,12 @@
 </div>
 <!--组件模板-->
 <template id="myComponent">
-    <div class="component">
+    <div class="components">
+        <slot></slot>
         <div>{{msg}}</div>
-        <solt></solt>
-        <solt name="head"></solt>
-        <solt name="body"></solt>
-        <solt name="footer"></solt>
+        <slot name="head"></slot>
+        <slot name="body"></slot>
+        <slot name="footer"></slot>
     </div>
 </template>
 <!--加载vue.js-->
@@ -40,11 +47,12 @@
     new Vue({
         el: '#app',
         data: {
-            msg: "下面是插槽分发的内容",
+            msg: "下面是具名插槽分发的内容",
         },
         components: {
             'my-component': {
                 template: '#myComponent',
+                props: ['msg']
             }
         }
     })
