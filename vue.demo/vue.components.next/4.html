@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    <child1 ref="child1"></child1>
+    <child2 ref="child2"></child2>
+    <button @click="alert1">点击1</button>
+    <button @click="alert2">点击2</button>
+</div>
+<script src="../vue.js"></script>
+<script>
+    new Vue({
+        el: '#app',
+        components: {
+            'child1': {
+                template: '<h1>{{msg}}</h1>',
+                data: function () {
+                    return {
+                        msg: "child1 template"
+                    }
+                }
+            },
+            'child2': {
+                template: '<h1>{{msg}}</h1>',
+                data: function () {
+                    return {
+                        msg: "child2 template"
+                    }
+                }
+            },
+        },
+        data: {
+            text: "测试文字"
+        },
+        methods: {
+            alert1: function () {
+                this.$children.forEach(function (v, i) {
+                    alert(v.msg);
+                })
+            },
+            alert2:function () {
+                alert(this.$refs.child1.msg);
+                alert(this.$refs.child2.msg);
+            }
+        }
+    })
+</script>
+</body>
+</html>
