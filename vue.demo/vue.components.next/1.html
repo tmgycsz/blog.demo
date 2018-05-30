@@ -3,35 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <style>
-        .component {
-            margin: 100px auto;
-            width: 400px;
-        }
-        .head,.body,.footer,.title {
-            width: 100%;
-            height: 200px;
-            background-color: #ff3b30;
-        }
-    </style>
 </head>
 <body>
 <div id="app">
     <my-component>
-        <div class="title">标题</div>
-        <p class="head" slot="head">我是头部</p>
-        <p class="body" slot="body">我是身体</p>
-        <p class="footer" slot="footer">我是底部</p>
+        <span>父亲的名字：{{name}}</span><br>
+        <span>父亲的年龄：{{age}}</span><br>
+    </my-component>
+    <div style="height: 100px"></div>
+    <my-component>
     </my-component>
 </div>
 <!--组件模板-->
 <template id="myComponent">
-    <div class="component">
-        <div>{{msg}}</div>
-        <solt></solt>
-        <solt name="head"></solt>
-        <solt name="body"></solt>
-        <solt name="footer"></solt>
+    <div>
+        <span>儿子的名字：{{childName}}</span><br>
+        <span>儿子的年龄：{{childAge}}</span><br>
+        <slot>
+            父亲信息不显示
+        </slot>
     </div>
 </template>
 <!--加载vue.js-->
@@ -40,11 +30,20 @@
     new Vue({
         el: '#app',
         data: {
-            msg: "下面是插槽分发的内容",
+            name: "father",
+            age: "30",
         },
         components: {
             'my-component': {
                 template: '#myComponent',
+                props: ['name','age'],
+                //这里data必须是一个函数
+                data: function() {
+                    return {
+                        childName: "child",
+                        childAge: "8",
+                    }
+                }
             }
         }
     })
