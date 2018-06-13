@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    <router-view></router-view>
+</div>
+<template id="userDetail">
+    <div>
+        用户ID：{{$route.params.id}}
+        用户名是：{{$route.params.name}}
+    </div>
+</template>
+</body>
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+<script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+<script>
+    var nav = Vue.extend({
+        template: '<div>' +
+        '<router-link to="/userDetail/123/post/csz" style="margin-right: 10px">User123</router-link>' +
+        '<router-link to="/userDetail/456/post/xyw">User456</router-link>' +
+        '</div>'
+    });
+    //用户页面组件
+    var userDetail = Vue.extend({
+        template: '#userDetail'
+    });
+
+    var router = new VueRouter({
+        routes: [
+            {
+                path: '/userDetail/:id/post/:name',
+                component: userDetail
+            },
+            {
+                path: '/',
+                component: nav
+            }
+        ]
+    });
+
+    //4. 创建和挂载根实例。
+    var app = new Vue({
+        //加载路由实例
+        router
+        //挂载到#app上
+    }).$mount('#app');
+</script>
+</html>

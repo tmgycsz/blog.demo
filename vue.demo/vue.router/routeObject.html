@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta http-equiv="content-type" content="text/html;charset=utf-8">
+<head>
+</head>
+<body>
+<div id="app">
+    <router-link :to="{ name: 'user', params: { id: 123 , name: 'csz'}}">Go to userDetail params</router-link>
+    </br>
+    <router-link :to="{ name: 'user', query: { id: 123 , name: 'csz'}}">Go to userDetail query</router-link>
+    <router-view></router-view>
+</div>
+<template id="userDetail">
+    <div>
+        <div>
+            <span>params传参方式(类似于ajax的post请求)</span></br>
+            用户ID：{{$route.params.id}}</br>
+            用户名是：{{$route.params.name}}
+        </div>
+        <div>
+            <span>query传参方式(类似于ajax的get请求)</span></br>
+            用户ID：{{$route.query.id}}</br>
+            用户名是：{{$route.query.name}}
+        </div>
+
+
+        <p style="margin-top: 100px">当前路径：{{$route.path}}</p>
+        <p>当前参数：{{$route.params}}</p>
+        <p>路由查询参数：{{$route.query}}</p>
+        <p>路由名称：{{$route.name}}</p>
+    </div>
+</template>
+</body>
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+<script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+<script>
+    //用户页面组件
+    var userDetail = Vue.extend({
+        template: '#userDetail'
+    });
+    //2. 定义路由
+    var routes = [
+        {path: '/userDetail', component: userDetail, name: "user"},
+    ]
+
+    //3. 创建 router 实例，然后传 `routes` 配置
+    var router = new VueRouter({
+        routes: routes,
+    });
+
+    //4. 创建和挂载根实例。
+    var app = new Vue({
+        //加载路由实例
+        router
+        //挂载到#app上
+    }).$mount('#app');
+</script>
+</html>
