@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+</head>
+<body>
+<div id="app">
+    <router-link to="/main1">main1</router-link>
+    <router-link to="/main2">main2</router-link>
+    <router-view name="header"></router-view>
+    <router-view class="main"></router-view>
+    <router-view name="footer"></router-view>
+</div>
+</body>
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+<script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+<script>
+    //创建home组件
+    var header = Vue.extend({
+        template: '<div class="header">header</div>',
+    });
+    //创建nav组件
+    var footer = Vue.extend({
+        template: '<div>footer</div>'
+    });
+    //主内容区1
+    var main1 = Vue.extend({
+        template: '<div>main1</div>'
+    });
+    //主内容区2
+    var main2 = Vue.extend({
+        template: '<div>main2</div>'
+    });
+    //2. 定义路由
+    var routes =  [
+        {
+            path: '/main1',
+            components:{
+                default: main1,
+                header: header,
+                footer: footer,
+            }
+        },
+        {
+            path: '/main2',
+            components:{
+                default: main2,
+                header: header,
+                footer: footer,
+            }
+        }
+    ];
+
+    //3. 创建 router 实例，然后传 `routes` 配置
+    var router = new VueRouter({
+        routes: routes
+    });
+
+    //4. 创建和挂载根实例。
+    var app = new Vue({
+        //加载路由实例
+        router
+        //挂载到#app上
+    }).$mount('#app');
+</script>
+</html>
