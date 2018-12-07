@@ -129,9 +129,9 @@
     opacity: 0.5;
   }
 
-  .m_showBox .pop_box {
+  .pop_box {
     position: absolute;
-    width: 700px;
+    width: 550px;
     background: #fff;
     top: 50%;
     left: 50%;
@@ -279,5 +279,19 @@
   .pop_box_bottom .confirm_btn .marginLeft {
     margin-left: 10px;
   }
+
+  /*skin样式宽度*/
+  .small .pop_box {
+    width: 550px;
+  }
+
+  .middle .pop_box {
+    width: 700px;
+  }
+
+  .large .pop_box {
+    width: 850px;
+  }
+
 </style>
 
