@@ -90,10 +90,10 @@
               document.onmousemove = document.onmouseup = null;
             });
           });
-          window.onresize = function () {
+          window.onresize = (() =>{
             vnode.style.left = "50%";
             vnode.style.top = "50%";
-          };
+          });
         }
       }
     }
